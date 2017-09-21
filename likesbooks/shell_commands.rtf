@@ -1,0 +1,155 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c95825;\csgray\c0\c85000;}
+\margl1440\margr1440\vieww17480\viewh10840\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf2 \cb3 \CocoaLigature0 (venv) Raymonds-Air:likesbooks ray$ python manage.py shell\
+Python 2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 12:39:47) \
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin\
+Type "help", "copyright", "credits" or "license" for more information.\
+(InteractiveConsole)\
+>>> from apps.likes_books.models import *\
+>>> u1 = User.objects.get(id=1)\
+>>> u2 = User.objects.get(id=2)\
+>>> u3 = User.objects.get(id=3)\
+>>> u1\
+<User: Michael Jordan goat@nba.com>\
+>>> u2\
+<User: Bill Russell 11@rings.com>\
+>>> u3\
+<User: Magic Johnson lakers@nba.com>\
+>>> Book.objects.get(id=1)\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/manager.py", line 85, in manager_method\
+    return getattr(self.get_queryset(), name)(*args, **kwargs)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/query.py", line 385, in get\
+    self.model._meta.object_name\
+DoesNotExist: Book matching query does not exist.\
+>>> b1 = Book(name="The Triangle", desc="Everything you need to know about the Triangle offense")\
+>>> b1\
+<Book: The Triangle Everything you need to know about the Triangle offense>\
+>>> b1.save()\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/base.py", line 796, in save\
+    force_update=force_update, update_fields=update_fields)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/base.py", line 824, in save_base\
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/base.py", line 908, in _save_table\
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/base.py", line 947, in _do_insert\
+    using=using, raw=raw)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/manager.py", line 85, in manager_method\
+    return getattr(self.get_queryset(), name)(*args, **kwargs)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/query.py", line 1043, in _insert\
+    return query.get_compiler(using=using).execute_sql(return_id)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/sql/compiler.py", line 1054, in execute_sql\
+    cursor.execute(sql, params)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/backends/utils.py", line 79, in execute\
+    return super(CursorDebugWrapper, self).execute(sql, params)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/backends/utils.py", line 64, in execute\
+    return self.cursor.execute(sql, params)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/utils.py", line 94, in __exit__\
+    six.reraise(dj_exc_type, dj_exc_value, traceback)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/backends/utils.py", line 64, in execute\
+    return self.cursor.execute(sql, params)\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/backends/sqlite3/base.py", line 337, in execute\
+    return Database.Cursor.execute(self, query, params)\
+IntegrityError: NOT NULL constraint failed: likes_books_book.uploader_id\
+>>> b1\
+<Book: The Triangle Everything you need to know about the Triangle offense>\
+>>> b1.uploader.add(u1)\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+  File "/Users/ray/Desktop/DojoAssignments/Python/django/10-likes-books/venv/lib/python2.7/site-packages/django/db/models/fields/related_descriptors.py", line 189, in __get__\
+    "%s has no %s." % (self.field.model.__name__, self.field.name)\
+RelatedObjectDoesNotExist: Book has no uploader.\
+>>> b.uploader = u1\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+NameError: name 'b' is not defined\
+>>> b1.uploader = u1\
+>>> b1\
+<Book: The Triangle Everything you need to know about the Triangle offense>\
+>>> b1.save()\
+>>> exit()\
+(venv) Raymonds-Air:likesbooks ray$ python manage.py shell\
+Python 2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 12:39:47) \
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin\
+Type "help", "copyright", "credits" or "license" for more information.\
+(InteractiveConsole)\
+>>> from apps.likes_books.models import *\
+>>> b1 = Book.objects.get(id=1)\
+>>> u1 = User.objects.get(id=1)\
+>>> u2 = User.objects.get(id=2)\
+>>> u3 = User.objects.get(id=3)\
+>>> b1\
+<Book: The Triangle Everything you need to know about the Triangle offense Michael Jordan goat@nba.com>\
+>>> b.uploader\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+NameError: name 'b' is not defined\
+>>> b1.uploader\
+<User: Michael Jordan goat@nba.com>\
+>>> u1.uploaded_books\
+<django.db.models.fields.related_descriptors.RelatedManager object at 0x102747350>\
+>>> u1.uploaded_books.all()\
+<QuerySet [<Book: The Triangle Everything you need to know about the Triangle offense Michael Jordan goat@nba.com>]>\
+>>> b2 = Book(name="Phil", desc="An in depth look at MJ's relationship with Phil Jackson", uploader=u1)\
+>>> b2\
+<Book: Phil An in depth look at MJ's relationship with Phil Jackson Michael Jordan goat@nba.com>\
+>>> b2.save()\
+>>> b3 = Book(name="Titles", desc="Bill Russell's in depth look at winning multiple nba titles", uploader=u2)\
+>>> b3\
+<Book: Titles Bill Russell's in depth look at winning multiple nba titles Bill Russell 11@rings.com>\
+>>> b3.save()\
+>>> b4 = Book(name="Red", desc="A look into Bill Russell and Red Auerbach's relationship", uploader=u2)\
+>>> b4.save()\
+>>> \
+>>> >>> <\
+>>> b5 = Book(name="Showtime", desc="The epic run of the Showtime Lakers", uploader="\
+>>> \
+>>> b5 = Book(name="Showtime", desc="The epic run of the Showtime Lakers", uploader=u3)\
+>>> b5\
+<Book: Showtime The epic run of the Showtime Lakers Magic Johnson lakers@nba.com>\
+>>> b5.save()\
+>>> b6 = Book(name="Magic & Larry", desc="Deeper dive into the relationship that marked the 80's and their big rivalry", uploader=u3)\
+>>> b6.save()\
+>>> b6\
+<Book: Magic & Larry Deeper dive into the relationship that marked the 80's and their big rivalry Magic Johnson lakers@nba.com>\
+>>> u1.like_books.all()\
+<QuerySet []>\
+>>> u1.like_books.add(b6,b1)\
+>>> u1.like_books.all()\
+<QuerySet [<Book: The Triangle Everything you need to know about the Triangle offense Michael Jordan goat@nba.com>, <Book: Magic & Larry Deeper dive into the relationship that marked the 80's and their big rivalry Magic Johnson lakers@nba.com>]>\
+>>> u2.like_books.add(b1,b3)\
+>>> u2.like_books.all()\
+<QuerySet [<Book: The Triangle Everything you need to know about the Triangle offense Michael Jordan goat@nba.com>, <Book: Titles Bill Russell's in depth look at winning multiple nba titles Bill Russell 11@rings.com>]>\
+>>> u3.like_books.add(b1,b2,b3,b4,b5,b6)\
+>>> u3.like_books.all()\
+<QuerySet [<Book: The Triangle Everything you need to know about the Triangle offense Michael Jordan goat@nba.com>, <Book: Phil An in depth look at MJ's relationship with Phil Jackson Michael Jordan goat@nba.com>, <Book: Titles Bill Russell's in depth look at winning multiple nba titles Bill Russell 11@rings.com>, <Book: Red A look into Bill Russell and Red Auerbach's relationship Bill Russell 11@rings.com>, <Book: Showtime The epic run of the Showtime Lakers Magic Johnson lakers@nba.com>, <Book: Magic & Larry Deeper dive into the relationship that marked the 80's and their big rivalry Magic Johnson lakers@nba.com>]>\
+>>> b1.liked_user.all()\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+AttributeError: 'Book' object has no attribute 'liked_user'\
+>>> b1.liked_users.all()\
+<QuerySet [<User: Michael Jordan goat@nba.com>, <User: Bill Russell 11@rings.com>, <User: Magic Johnson lakers@nba.com>]>\
+>>> >>> b1.uploader\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+AttributeError: 'Book' object has no attribute 'uploaderader'\
+>>> b1.uploader\
+<User: Michael Jordan goat@nba.com>\
+>>> b2.like_users.all()\
+Traceback (most recent call last):\
+  File "<console>", line 1, in <module>\
+AttributeError: 'Book' object has no attribute 'like_users'\
+>>> b2.liked_users.all()\
+<QuerySet [<User: Magic Johnson lakers@nba.com>]>\
+>>> b2.uploader\
+<User: Michael Jordan goat@nba.com>\
+>>> \
+}
